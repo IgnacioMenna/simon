@@ -165,7 +165,7 @@ function SimonGame() {
     <div className="flex justify-center items-center bg-neutral-900 text-white w-screen h-screen">
       <div className="relative flex flex-col justify-center items-center">
          {/* Puntaje más alto */}
-         <h2 className="fixed top-2 left-3 text-3xl font-bungee box-border">Puntaje mas alto: {highScore}</h2>
+         <h2 className="fixed top-2 left-3 text-2xl font-bungee box-border">Puntaje mas alto: {highScore}</h2>
 
         {/* Botones de colores */}
         <div>
