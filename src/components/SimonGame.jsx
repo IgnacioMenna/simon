@@ -10,12 +10,13 @@ import blueSound from "./audios/blue.mp3";
 const colors = ["green", "red", "yellow", "blue"];
 
 function SimonGame() {
+
   // Estados
-  const [sequence, setSequence] = useState([]);
-  const [playing, setPlaying] = useState(false);
-  const [playingIdx, setPlayingIdx] = useState(0);
+  const [sequence, setSequence] = useState([]); // Secuencia de colores
+  const [playing, setPlaying] = useState(false); // Estado de juego
+  const [playingIdx, setPlayingIdx] = useState(0); // Índice de la secuencia que se está jugando
   const [gameOver, setGameOver] = useState(false); // Nuevo estado para controlar el fin del juego
-  const [isShowingSequence, setIsShowingSequence] = useState(false);
+  const [isShowingSequence, setIsShowingSequence] = useState(false); // Controlar si se está mostrando la secuencia
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem("highScore")) || 0 // Cargar el puntaje más alto
   );
 
@@ -159,13 +160,14 @@ function SimonGame() {
     }
   }, [sequence]);
   
+// eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
     // Contenedor principal
     <div className="flex justify-center items-center bg-neutral-900 text-white w-screen h-screen">
       <div className="relative flex flex-col justify-center items-center">
          {/* Puntaje más alto */}
-         <h2 className="fixed top-2 left-3 text-2xl font-bungee box-border">Puntaje mas alto: {highScore}</h2>
+         <h2 className="fixed top-2 left-3 text-2xl font-bungee box-border">Mejor Puntaje: {highScore}</h2>
 
         {/* Botones de colores */}
         <div>
