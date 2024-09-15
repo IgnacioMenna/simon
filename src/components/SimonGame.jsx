@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import useSound from "use-sound";
 import GameBtn from "./GameBtn";
 
-import greenSound from "./audios/verde.mp3";
-import redSound from "./audios/rojo.mp3";
+import greenSound from "./audios/green.mp3";
+import redSound from "./audios/red.mp3";
 import yellowSound from './audios/yellow.mp3';
 import blueSound from "./audios/blue.mp3";
 
