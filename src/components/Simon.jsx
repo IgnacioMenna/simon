@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import useSound from "use-sound";
-import GameBtn from "./GameBtn";
+import GameBtn from "./Boton";
 
 import greenSound from "./audios/green.mp3";
 import redSound from "./audios/red.mp3";
@@ -9,39 +9,39 @@ import blueSound from "./audios/blue.mp3";
 
 const colors = ["green", "red", "yellow", "blue"];
 
-function SimonGame() {
+function Simon() {
 
   // Estados
-  const [sequence, setSequence] = useState([]); // Secuencia de colores
-  const [playing, setPlaying] = useState(false); // Estado de juego
+  const [isShowingSequence, setIsShowingSequence] = useState(false); // Controlar si se está mostrando la secuencia
   const [playingIdx, setPlayingIdx] = useState(0); // Índice de la secuencia que se está jugando
   const [gameOver, setGameOver] = useState(false); // Nuevo estado para controlar el fin del juego
-  const [isShowingSequence, setIsShowingSequence] = useState(false); // Controlar si se está mostrando la secuencia
+  const [playing, setPlaying] = useState(false); // Estado de juego
+  const [sequence, setSequence] = useState([]); // Secuencia de colores
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem("highScore")) || 0 // Cargar el puntaje más alto
   );
-
-  // Referencias
-  const greenRef = useRef(null);
-  const redRef = useRef(null);
-  const yellowRef = useRef(null);
-  const blueRef = useRef(null);
 
   // Sonidos para cada color
   const [playGreen] = useSound(greenSound);
   const [playRed] = useSound(redSound);
   const [playYellow] = useSound(yellowSound);
   const [playBlue] = useSound(blueSound);
+  
+  // Referencias
+  const greenRef = useRef(null);
+  const redRef = useRef(null);
+  const yellowRef = useRef(null);
+  const blueRef = useRef(null);
 
   // Reinicia el juego
   const resetGame = () => {
-    setSequence([]);
     setPlaying(false);
-    setPlayingIdx(0);
+    setSequence([]);
     setGameOver(false);
+    setPlayingIdx(0);
   };
 
   // Añade un color aleatorio a la secuencia
-  const addNewColor = () => {
+  const addColor = () => {
     const color = colors[Math.floor(Math.random() * 4)];
     const newSequence = [...sequence, color];
     setSequence(newSequence);
@@ -51,12 +51,12 @@ function SimonGame() {
   const handleNextLevel = () => {
     if (!playing && !gameOver) {
       setPlaying(true);
-      addNewColor();
+      addColor();
     }
   };
 
   // Maneja el color clickeado
-  const handleColorClick = (e) => {
+  const handleClick = (e) => {
     if (!playing || isShowingSequence) return;  // Evitar clics si no se está jugando o si se está mostrando la secuencia
   
     // Reproduce el sonido según el color clickeado
@@ -78,10 +78,10 @@ function SimonGame() {
         break;
     }
 
-    e.target.classList.add("opacity-50");
+    e.target.classList.add("opacity-55");
   
     setTimeout(() => {
-      e.target.classList.remove("opacity-50");
+      e.target.classList.remove("opacity-55");
   
       const clickColor = e.target.getAttribute("color");
   
@@ -91,7 +91,7 @@ function SimonGame() {
         if (playingIdx === sequence.length - 1) {
           setTimeout(() => {
             setPlayingIdx(0);
-            addNewColor();
+            addColor();
           }, 210);
         } else {
           // Siguiente color de la secuencia
@@ -120,7 +120,7 @@ function SimonGame() {
     if (sequence.length > 0) {
       setIsShowingSequence(true);  // Bloquear los clics mientras se muestra la secuencia
   
-      const showSequence = (idx = 0) => {
+      const mostrarSequence = (idx = 0) => {
         let ref = null;
   
         // Determina qué botón resaltar y qué sonido reproducir
@@ -143,12 +143,12 @@ function SimonGame() {
   
         // Resalta la referencia
         setTimeout(() => {
-          ref.current.classList.add("brightness-[2.5]");
+          ref.current.classList.add("brightness-[2.0]");
   
           setTimeout(() => {
-            ref.current.classList.remove("brightness-[2.5]");
+            ref.current.classList.remove("brightness-[2.0]");
             if (idx < sequence.length - 1) {
-              showSequence(idx + 1);
+              mostrarSequence(idx + 1);
             } else {
               setIsShowingSequence(false);  // Permitir clics después de mostrar la secuencia
             }
@@ -156,7 +156,7 @@ function SimonGame() {
         }, 210);
       };
 
-      showSequence();
+      mostrarSequence();
     }
   }, [sequence]);
 
@@ -173,14 +173,14 @@ function SimonGame() {
             color="green"
             border="rounded-custom-rounded-tl-full"
             bg="bg-verde"
-            onClick={handleColorClick}
+            onClick={handleClick}
             ref={greenRef}
           />
           <GameBtn
             color="red"
             border="rounded-custom-rounded-tr-full"
             bg="bg-rojo"
-            onClick={handleColorClick}
+            onClick={handleClick}
             ref={redRef}
           />
         </div>
@@ -189,14 +189,14 @@ function SimonGame() {
             color="yellow"
             border="rounded-custom-rounded-bl-full"
             bg="bg-amarillo"
-            onClick={handleColorClick}
+            onClick={handleClick}
             ref={yellowRef}
           />
           <GameBtn
             color="blue"
             border="rounded-custom-rounded-br-full"
             bg="bg-azul"
-            onClick={handleColorClick}
+            onClick={handleClick}
             ref={blueRef}
           />
         </div>
@@ -225,4 +225,4 @@ function SimonGame() {
   );
 }
 
-export default SimonGame;
+export default Simon;

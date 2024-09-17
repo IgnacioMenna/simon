@@ -1,7 +1,7 @@
-import SimonGame from "./components/SimonGame";
+import Simon from "./components/Simon";
 
 function App() {
-  return <SimonGame/>;
+  return <Simon/>;
 }
 
 export default App;
