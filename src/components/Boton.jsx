@@ -1,5 +1,7 @@
 import React, { forwardRef } from "react";
 
+// renderiza el botón del juego con el color, borde y fondo recibido como props,
+// el evento onClick, y ref para interactuar con el botón
 const GameBtn = forwardRef(({ color, border, bg, onClick }, ref) => (
   <button
     color={color}
